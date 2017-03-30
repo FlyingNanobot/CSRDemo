@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>JSSample</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <p id="test"></p>
+    <br/>
+    <script type="text/javascript">
+        $(function () {
+            var params = {
+                // Request parameters
+            };
+
+            $.ajax({
+                url: "https://westus.api.cognitive.microsoft.com/spid/v1.0/verify?verificationProfileId=<verificationProfileId>&" + $.param(params),
+                beforeSend: function (xhrObj) {
+                    // Request headers
+                    xhrObj.setRequestHeader("Content-Type", "application/octet-stream");
+                    xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "<Ocp-Apim-Subscription-Key>");
+                },
+                type: "POST",
+                // Request body
+                data: "",
+                success: function (data) {
+                    setResponse(JSON.stringify(data));
+                },
+                error: function (data) {
+                    setResponse("Error: " + JSON.stringify(data));
+                }
+            });
+            setResponse("Loading...");
+        });
+    function setResponse(val) {
+        $("#test").text(val);
+
+    };
+    </script>
+</body>
+</html>
